@@ -1,0 +1,16 @@
+/.bundle
+/.env
+/.ruby-lsp
+/coverage
+/log/*
+/storage/*
+/tmp/*
+/vendor/bundle
+
+!/log/.keep
+!/storage/.keep
+!/tmp/.keep
+!/tmp/pids/.keep
+
+/config/master.key
+/config/credentials/*.key
