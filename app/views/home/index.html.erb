@@ -1,0 +1,55 @@
+<% content_for :title, "Rails on Wodby" %>
+
+<main class="welcome">
+  <section class="hero">
+    <p class="eyebrow">Rails <%= Rails.version %> · Wodby</p>
+    <h1>Your Rails application is ready.</h1>
+    <p class="lede">
+      PostgreSQL, Sidekiq with Valkey, Hotwire, and the Rails asset pipeline are
+      configured and ready for your application code.
+    </p>
+
+    <div class="status-grid" aria-label="Application components">
+      <article>
+        <span class="status-dot" aria-hidden="true"></span>
+        <strong>Rails</strong>
+        <small>Full-stack application</small>
+      </article>
+      <article>
+        <span class="status-dot" aria-hidden="true"></span>
+        <strong>Sidekiq + Valkey</strong>
+        <small>Background job processing</small>
+      </article>
+      <article>
+        <span class="status-dot" aria-hidden="true"></span>
+        <strong>Hotwire</strong>
+        <small>Turbo and Stimulus</small>
+      </article>
+    </div>
+  </section>
+
+  <section class="demo" data-controller="hello">
+    <div>
+      <p class="eyebrow">Stimulus check</p>
+      <h2>Try the JavaScript starter</h2>
+      <p>This interaction runs through the default Rails import-map setup.</p>
+    </div>
+
+    <div class="demo-controls">
+      <label for="developer-name">Your name</label>
+      <div class="input-row">
+        <input
+          id="developer-name"
+          type="text"
+          placeholder="Rails developer"
+          data-hello-target="name"
+          data-action="keydown.enter->hello#greet"
+        >
+        <button type="button" data-action="hello#greet">Say hello</button>
+      </div>
+      <p class="demo-output" data-hello-target="output" aria-live="polite">
+        Hotwire is connected.
+      </p>
+    </div>
+  </section>
+</main>

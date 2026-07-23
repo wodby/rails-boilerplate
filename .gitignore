@@ -1,8 +1,11 @@
 /.bundle
 /.env
+/.env.*
+!/.env.example
 /.ruby-lsp
 /coverage
 /log/*
+/public/assets
 /storage/*
 /tmp/*
 /vendor/bundle

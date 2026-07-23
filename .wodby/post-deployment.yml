@@ -4,4 +4,4 @@ jobs:
   rails-app-check:
     steps:
     - run: |
-        bundle exec rails runner 'puts "application loaded"'
+        bundle exec rails runner 'abort "Sidekiq is not configured" unless ActiveJob::Base.queue_adapter.class.name == "ActiveJob::QueueAdapters::SidekiqAdapter"; Sidekiq.redis { |connection| abort "Valkey is unavailable" unless connection.call("PING") == "PONG" }; puts "application loaded"'
