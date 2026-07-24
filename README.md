@@ -28,6 +28,11 @@ separate worker service and supplies `REDIS_URL` through its required Valkey
 service. Valkey is configured with persistence and a `noeviction` memory
 policy so queued jobs are not treated as disposable cache entries.
 
+The [`wodby/service-rails`](https://github.com/wodby/service-rails) repository
+defines the Rails build, web, and Sidekiq service configuration. The
+[`wodby/stack-rails`](https://github.com/wodby/stack-rails) repository composes
+that service with PostgreSQL and Valkey for a deployable Rails application.
+
 ## Verify
 
 ```sh
