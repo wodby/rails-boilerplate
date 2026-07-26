@@ -37,8 +37,16 @@ Rails.application.configure do
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
-  # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  # Use Wodby's primary route when deployed, with localhost as the local fallback.
+  if ENV["WODBY_PRIMARY_HOST"].present?
+    primary_url = ENV.fetch("WODBY_PRIMARY_URL", "https://#{ENV['WODBY_PRIMARY_HOST']}")
+    config.action_mailer.default_url_options = {
+      host: ENV["WODBY_PRIMARY_HOST"],
+      protocol: primary_url.split("://", 2).first
+    }
+  else
+    config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  end
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

@@ -27,5 +27,15 @@ module App
     # Wodby supplies REDIS_URL through the Rails stack's required Valkey
     # service. This also enables Sidekiq in Wodby development environments.
     config.active_job.queue_adapter = :sidekiq if ENV["REDIS_URL"].present?
+
+    if ENV["SMTP_HOST"].present?
+      config.action_mailer.delivery_method = :smtp
+      config.action_mailer.smtp_settings = {
+        address: ENV["SMTP_HOST"],
+        port: Integer(ENV.fetch("SMTP_PORT", "25"), 10),
+        open_timeout: 5,
+        read_timeout: 5
+      }
+    end
   end
 end
