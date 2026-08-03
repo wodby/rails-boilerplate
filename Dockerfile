@@ -2,7 +2,8 @@ ARG WODBY_BASE_IMAGE
 FROM ${WODBY_BASE_IMAGE} AS builder
 
 USER root
-RUN apk add --no-cache --virtual .build-deps build-base
+RUN apk add --no-cache vips && \
+    apk add --no-cache --virtual .build-deps build-base
 
 USER wodby
 ARG COPY_FROM
