@@ -28,10 +28,17 @@ The `test` entry in `config/database.yml` remains a distinct database for
 explicit test runs outside a deployed app container. Do not point it at the
 provisioned application database.
 
-Sidekiq is the production Active Job backend. The Rails stack runs it as a
-separate worker service and supplies `REDIS_URL` through its required Valkey
-service. Valkey is configured with persistence and a `noeviction` memory
-policy so queued jobs are not treated as disposable cache entries.
+Sidekiq is enabled as the Active Job backend whenever `REDIS_URL` is present.
+The standard Rails stack runs it as a separate worker service and supplies
+`REDIS_URL` through its required Valkey service. Valkey is configured with
+persistence and a `noeviction` memory policy so queued jobs are not treated as
+disposable cache entries.
+
+Custom stacks whose applications do not enqueue background jobs can omit both
+the Redis link and Sidekiq worker. Without `REDIS_URL`, Rails falls back to its
+in-process asynchronous adapter; jobs queued there are not durable and can be
+lost when the web process restarts. Applications that need durable background
+jobs must provide Redis or configure another persistent Active Job backend.
 
 When an SMTP service is enabled, the inherited `SMTP_HOST` and `SMTP_PORT`
 variables configure Action Mailer automatically. Mailer links use

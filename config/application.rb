@@ -24,8 +24,8 @@ module App
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Wodby supplies REDIS_URL through the Rails stack's required Valkey
-    # service. This also enables Sidekiq in Wodby development environments.
+    # Enable Sidekiq when a stack supplies Redis or Valkey. Custom stacks that
+    # do not enqueue background jobs can omit both the link and worker.
     config.active_job.queue_adapter = :sidekiq if ENV["REDIS_URL"].present?
 
     if ENV["SMTP_HOST"].present?
